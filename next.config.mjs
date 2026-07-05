@@ -9,6 +9,9 @@ const nextConfig = {
   poweredByHeader: false,
   // Pin the workspace root to this project (a stray lockfile exists in the home dir)
   outputFileTracingRoot: __dirname,
+  // Bundle a self-contained Node server into .next/standalone for production
+  // deployment (run `node server.js`). Keeps API routes / SSR working.
+  output: "standalone",
 };
 
 export default nextConfig;

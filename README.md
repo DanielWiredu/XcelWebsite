@@ -23,10 +23,19 @@ npm run dev      # http://localhost:3000
 ### Other scripts
 
 ```bash
-npm run build    # production build (fully static)
-npm run start    # serve the production build
-npm run lint     # lint
+npm run build            # production build → self-contained server in .next/standalone
+npm run start            # serve the build (next start)
+npm run start:standalone # run the standalone server directly (node .next/standalone/server.js)
+npm run lint             # lint
 ```
+
+## Deployment (Node.js on IIS)
+
+This is a **Node.js app** (server-side API route + image optimization). `npm run build`
+uses `output: "standalone"` and a `postbuild` step to produce a complete, copy-and-run
+server at **`.next/standalone`**. IIS runs in front as a reverse proxy to the Node process.
+
+👉 **Full step-by-step guide: [DEPLOY-IIS-NODE.md](DEPLOY-IIS-NODE.md)**
 
 ## Sections
 
