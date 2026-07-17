@@ -140,10 +140,10 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    name: "GCB Health Claims Management System",
+    name: "Corporate Health Claims Management System",
     category: "Banking · Healthcare",
     summary:
-      "A fully integrated healthcare claims ecosystem — web platform, mobile app, and API integration — automating adjudication and fraud detection for GCB Bank staff and providers.",
+      "A fully integrated healthcare claims ecosystem — web platform, mobile app, and API integration — automating adjudication and fraud detection for corporate staff and providers.",
     highlights: [
       "Automated & real-time claim adjudication",
       "HL7/FHIR provider integration",
@@ -332,7 +332,7 @@ export const team: TeamMember[] = [
     initials: "SB",
     image: "/team/samuel-boafo.jpg",
     bio: "An award-winning Chartered Accountant and transformational leader with 18+ years across Ghana's financial services and private health insurance industries, driving innovation and digital transformation.",
-    credentials: ["Chartered Accountant", "MBA Finance", "IFRS 17 Lead", "LLB Candidate"],
+    credentials: ["Chartered Accountant", "MBA Finance", "IFRS 17 Lead", "LLB"],
   },
   {
     name: "Daniel Gyasi-Nyarko",
