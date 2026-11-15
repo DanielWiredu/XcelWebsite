@@ -85,13 +85,6 @@ const config: Config = {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
-        "float-y": {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
-        },
-        "spin-slow": {
-          to: { transform: "rotate(360deg)" },
-        },
         // CSS-driven first-paint animations: run before JS hydrates
         "word-in": {
           from: { transform: "translateY(105%)", opacity: "0" },
@@ -105,19 +98,12 @@ const config: Config = {
           from: { opacity: "0" },
           to: { opacity: "1" },
         },
-        "zoom-out": {
-          from: { transform: "scale(1.12)" },
-          to: { transform: "scale(1)" },
-        },
       },
       animation: {
         "word-in": "word-in 1s cubic-bezier(0.16, 1, 0.3, 1) both",
         "fade-up": "fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) both",
-        "fade-in": "fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both",
-        "zoom-out": "zoom-out 2.4s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "fade-in": "fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards",
         marquee: "marquee 40s linear infinite",
-        "float-y": "float-y 7s ease-in-out infinite",
-        "spin-slow": "spin-slow 60s linear infinite",
       },
     },
   },

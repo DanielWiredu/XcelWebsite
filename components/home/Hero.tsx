@@ -4,7 +4,6 @@ import { ButtonLink, Eyebrow } from "../ui/Button";
 import { Counter } from "../ui/Counter";
 import { DiamondMark } from "../ui/DiamondMark";
 import { SplitHeadline } from "../ui/SplitHeadline";
-import { HeroVisual } from "./HeroVisual";
 
 export function Hero() {
   return (
@@ -19,13 +18,14 @@ export function Hero() {
             "radial-gradient(55% 60% at 80% 20%, rgba(68,83,184,0.40) 0%, transparent 60%), radial-gradient(45% 45% at 5% 95%, rgba(244,183,40,0.12) 0%, transparent 60%)",
         }}
       />
+      {/* The line-drawn diamonds are the hero's visual: keep the right side clear for them */}
       <DiamondMark
-        className="pointer-events-none absolute -right-48 top-16 -z-10 w-[40rem] opacity-20 sm:-right-32 lg:-right-24 lg:top-6 lg:w-[64rem] lg:opacity-25"
+        className="pointer-events-none absolute -right-48 top-16 -z-10 w-[40rem] opacity-20 sm:-right-32 lg:-right-16 lg:top-24 lg:w-[50rem] lg:opacity-60"
         delay={0.6}
       />
 
-      <div className="mx-auto max-w-7xl px-4 pt-32 sm:px-6 sm:pt-40 lg:px-8 lg:pt-44">
-        <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
+      <div className="mx-auto max-w-7xl px-4 pt-32 sm:px-6 sm:pt-40 lg:px-8 lg:pt-48">
+        <div className="max-w-3xl lg:max-w-[46rem]">
           <div>
             <div className="animate-fade-up">
               <Eyebrow tone="light">Custom software · Accra, Ghana</Eyebrow>
@@ -64,8 +64,6 @@ export function Hero() {
               ))}
             </ul>
           </div>
-
-          <HeroVisual />
         </div>
 
         {/* gap-px over a tinted background draws the hairline grid */}
