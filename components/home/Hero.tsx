@@ -4,6 +4,7 @@ import { ButtonLink, Eyebrow } from "../ui/Button";
 import { Counter } from "../ui/Counter";
 import { DiamondMark } from "../ui/DiamondMark";
 import { SplitHeadline } from "../ui/SplitHeadline";
+import { HeroCards } from "./HeroCards";
 
 export function Hero() {
   return (
@@ -18,13 +19,13 @@ export function Hero() {
             "radial-gradient(55% 60% at 80% 20%, rgba(68,83,184,0.40) 0%, transparent 60%), radial-gradient(45% 45% at 5% 95%, rgba(244,183,40,0.12) 0%, transparent 60%)",
         }}
       />
-      {/* The line-drawn diamonds are the hero's visual: keep the right side clear for them */}
+      {/* The line-drawn diamonds are the hero's visual; the floating cards orbit them */}
       <DiamondMark
         className="pointer-events-none absolute -right-48 top-16 -z-10 w-[40rem] opacity-20 sm:-right-32 lg:-right-16 lg:top-24 lg:w-[50rem] lg:opacity-60"
         delay={0.6}
       />
 
-      <div className="mx-auto max-w-7xl px-4 pt-32 sm:px-6 sm:pt-40 lg:px-8 lg:pt-48">
+      <div className="relative mx-auto max-w-7xl px-4 pt-32 sm:px-6 sm:pt-40 lg:px-8 lg:pt-48">
         <div className="max-w-3xl lg:max-w-[46rem]">
           <div>
             <div className="animate-fade-up">
@@ -65,6 +66,9 @@ export function Hero() {
             </ul>
           </div>
         </div>
+
+        {/* Inline stage on phones/tablets; floats beside the headline on desktop */}
+        <HeroCards className="relative mt-14 h-[21rem] lg:absolute lg:right-8 lg:top-36 lg:mt-0 lg:h-[32rem] lg:w-[40%]" />
 
         {/* gap-px over a tinted background draws the hairline grid */}
         <dl className="-mx-4 mt-20 grid grid-cols-2 gap-px border-t border-white/10 bg-white/10 sm:-mx-6 sm:mt-24 lg:grid-cols-4">

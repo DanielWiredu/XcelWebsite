@@ -98,11 +98,45 @@ const config: Config = {
           from: { opacity: "0" },
           to: { opacity: "1" },
         },
+        // Hero floating cards: springy entrance, then each wanders its own loop
+        "pop-in": {
+          "0%": { transform: "translateY(24px) scale(0.86)", opacity: "0" },
+          "100%": { transform: "translateY(0) scale(1)", opacity: "1" },
+        },
+        "drift-a": {
+          "0%, 100%": { transform: "translate3d(0, 0, 0) rotate(-2deg)" },
+          "25%": { transform: "translate3d(10px, -16px, 0) rotate(-0.5deg)" },
+          "50%": { transform: "translate3d(-4px, -26px, 0) rotate(1deg)" },
+          "75%": { transform: "translate3d(-12px, -8px, 0) rotate(-1deg)" },
+        },
+        "drift-b": {
+          "0%, 100%": { transform: "translate3d(0, 0, 0) rotate(2deg)" },
+          "30%": { transform: "translate3d(-14px, 12px, 0) rotate(0.5deg)" },
+          "60%": { transform: "translate3d(6px, 22px, 0) rotate(3deg)" },
+          "80%": { transform: "translate3d(12px, 6px, 0) rotate(1deg)" },
+        },
+        "drift-c": {
+          "0%, 100%": { transform: "translate3d(0, 0, 0) rotate(1deg)" },
+          "35%": { transform: "translate3d(16px, -10px, 0) rotate(-1.5deg)" },
+          "70%": { transform: "translate3d(-8px, -20px, 0) rotate(0deg)" },
+        },
+        "drift-d": {
+          "0%, 100%": { transform: "translate3d(0, 0, 0) rotate(-1deg)" },
+          "20%": { transform: "translate3d(-10px, -12px, 0) rotate(1deg)" },
+          "55%": { transform: "translate3d(-18px, 8px, 0) rotate(-2deg)" },
+          "85%": { transform: "translate3d(6px, 14px, 0) rotate(0.5deg)" },
+        },
       },
       animation: {
         "word-in": "word-in 1s cubic-bezier(0.16, 1, 0.3, 1) both",
         "fade-up": "fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) both",
         "fade-in": "fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards",
+        // Overshoot easing gives the entrance a soft bounce
+        "pop-in": "pop-in 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+        "drift-a": "drift-a 11s ease-in-out infinite",
+        "drift-b": "drift-b 13s ease-in-out infinite",
+        "drift-c": "drift-c 9.5s ease-in-out infinite",
+        "drift-d": "drift-d 12s ease-in-out infinite",
         marquee: "marquee 40s linear infinite",
       },
     },
