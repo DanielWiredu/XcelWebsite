@@ -1,6 +1,6 @@
 # Xcel iSolutions — Website
 
-A premium, single-page marketing website for **Xcel iSolutions Company Limited**, a Ghanaian-owned custom software company specializing in web applications, mobile apps, and enterprise software for regulated industries.
+A premium, multi-page marketing website for **Xcel iSolutions Company Limited**, a Ghanaian-owned custom software company specializing in web applications, mobile apps, and enterprise software for regulated industries.
 
 > **Driven by Care. Powered by Innovation.**
 
@@ -37,14 +37,22 @@ server at **`.next/standalone`**. IIS runs in front as a reverse proxy to the No
 
 👉 **Full step-by-step guide: [DEPLOY-IIS-NODE.md](DEPLOY-IIS-NODE.md)**
 
-## Sections
+## Pages
 
-Hero · Client marquee · Services · Industries · Featured Projects · Development Process ·
-Technologies · Testimonials · Team · FAQ · Contact · Footer
+| Route | What's on it |
+|---|---|
+| `/` | Cinematic hero · client marquee · story · "From paper to platform" sticky chapters · selected work · process · testimonials |
+| `/work` | Case study cards · industries · clients · testimonials |
+| `/work/[slug]` | One page per project: challenge → what we built → result, highlights, product mockup, next case |
+| `/services` | Six services · process · technology · FAQ |
+| `/about` | Story · mission & vision · values · team (with full-profile popup) |
+| `/contact` | Contact form (Resend) · contact details |
 
 ## Design & quality notes
 
-- **Minimalist** aesthetic — generous whitespace, large display typography (Sora), rounded cards, subtle blue gradients.
+- **Editorial** aesthetic: dark navy headers, warm ivory body, Instrument Serif headlines with gold italic accents, Inter for body text. Brand navy + gold and the twin-diamond logo throughout.
+- **Imagery**: free Unsplash photography registered in [`lib/images.ts`](lib/images.ts) and served from Unsplash's CDN at the exact size/format each device needs. Swap in your own photos by pointing `src` at a file in `public/images/`. Product visuals are coded mockups in `components/mockups/` (labelled "Demo data").
+- **Motion**: Framer Motion via `LazyMotion` (only the features used are loaded). First-paint animations (hero headline, page fade) are pure CSS so they never delay content. Only `transform`/`opacity`/`clip-path` animate, and `MotionConfig reducedMotion="user"` plus a global CSS rule honour reduced-motion settings.
 - **Accessibility** — skip-to-content link, semantic landmarks, `aria` on interactive elements, visible focus rings, and full `prefers-reduced-motion` support (animations disable gracefully).
 - **SEO** — per-page metadata, Open Graph/Twitter tags, canonical URL, JSON-LD `Organization` schema, `sitemap.xml`, and `robots.txt`. All content renders server-side.
 - **Responsive** — mobile-first layouts with a collapsing glass navbar and body-scroll lock on the mobile menu.
@@ -52,7 +60,7 @@ Technologies · Testimonials · Team · FAQ · Contact · Footer
 ## Content
 
 All copy and data live in [`lib/content.ts`](lib/content.ts) — services, industries, projects,
-process, tech stack, testimonials, team, FAQ, and clients. Edit that single file to update the site.
+process, tech stack, testimonials, team, FAQ, clients, homepage story and chapters. Photos are in [`lib/images.ts`](lib/images.ts).
 
 ## Contact form (Resend)
 

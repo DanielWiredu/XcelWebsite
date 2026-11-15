@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Inter, Instrument_Serif } from "next/font/google";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { MotionProvider } from "@/components/ui/MotionProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -8,10 +11,11 @@ const inter = Inter({
   display: "swap",
 });
 
-const sora = Sora({
+const serif = Instrument_Serif({
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  variable: "--font-display",
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-serif",
   display: "swap",
 });
 
@@ -20,19 +24,18 @@ const siteUrl = "https://www.xcelisolutions.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Xcel iSolutions — Custom Software, Web & Mobile Development",
+    default: "Xcel iSolutions | Custom Software for Regulated Industries",
     template: "%s | Xcel iSolutions",
   },
   description:
-    "Xcel iSolutions is a Ghanaian-owned technology partner building secure, bespoke web applications, mobile apps, and enterprise software for healthcare, insurance, finance, and the public sector. Driven by Care. Powered by Innovation.",
+    "Xcel iSolutions is a Ghanaian-owned technology partner building secure, bespoke web, mobile and enterprise software for healthcare, insurance, finance and the public sector.",
   keywords: [
-    "custom software development",
+    "custom software development Ghana",
     "web application development",
     "mobile app development",
     "enterprise software",
     "healthcare claims management",
-    "fintech Ghana",
-    "digital transformation",
+    "IFRS 17 software",
     "API integration",
     "Xcel iSolutions",
   ],
@@ -44,16 +47,14 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "Xcel iSolutions",
-    title: "Xcel iSolutions — Custom Software, Web & Mobile Development",
-    description:
-      "Secure, bespoke web, mobile, and enterprise software for regulated industries. Driven by Care. Powered by Innovation.",
+    title: "Xcel iSolutions | Custom Software for Regulated Industries",
+    description: "Secure, bespoke web, mobile and enterprise software. Driven by Care. Powered by Innovation.",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Xcel iSolutions — Custom Software Development",
-    description:
-      "Secure, bespoke web, mobile, and enterprise software for regulated industries.",
+    title: "Xcel iSolutions | Custom Software",
+    description: "Secure, bespoke web, mobile and enterprise software for regulated industries.",
   },
   robots: {
     index: true,
@@ -64,7 +65,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#141a3c",
+  themeColor: "#0b0f26",
   width: "device-width",
   initialScale: 1,
 };
@@ -105,24 +106,27 @@ const organizationSchema = {
   ],
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${sora.variable}`}>
-      <body className="min-h-screen bg-white font-sans text-navy-900 antialiased">
+    <html lang="en" className={`${inter.variable} ${serif.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="" />
+      </head>
+      <body className="min-h-screen bg-paper font-sans text-ink antialiased">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-navy-900 focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-gold-400 focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-navy-950"
         >
           Skip to content
         </a>
-        {children}
+        <MotionProvider>
+          <Navbar />
+          <main id="main">{children}</main>
+          <Footer />
+        </MotionProvider>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </body>
     </html>

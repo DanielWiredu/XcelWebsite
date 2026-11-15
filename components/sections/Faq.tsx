@@ -1,70 +1,63 @@
 "use client";
 
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useId, useState } from "react";
 import { Plus } from "lucide-react";
 import { faqs } from "@/lib/content";
-import { SectionHeading } from "../ui/SectionHeading";
+import { Eyebrow } from "../ui/Button";
 import { Reveal } from "../ui/Reveal";
 
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
+  const baseId = useId();
 
   return (
-    <section id="faq" className="relative py-24 sm:py-28">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6">
-        <SectionHeading
-          eyebrow="FAQ"
-          title={
-            <>
-              Answers to the{" "}
-              <span className="text-gradient">questions that matter</span>
-            </>
-          }
-          description="Everything you need to know about working with Xcel iSolutions."
-        />
+    <section aria-label="Frequently asked questions" className="bg-paper py-24 sm:py-32">
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+        <div className="lg:col-span-4">
+          <Reveal>
+            <Eyebrow>Questions</Eyebrow>
+            <h2 className="mt-6 font-serif text-display-md text-navy-950">
+              Good to <span className="italic text-gold-600">know.</span>
+            </h2>
+          </Reveal>
+        </div>
 
-        <Reveal className="mt-12 divide-y divide-navy-100 overflow-hidden rounded-4xl border border-navy-100 bg-white shadow-soft">
+        <Reveal className="divide-y divide-navy-900/10 border-y border-navy-900/10 lg:col-span-8">
           {faqs.map((faq, i) => {
             const isOpen = open === i;
+            const panelId = `${baseId}-panel-${i}`;
             return (
               <div key={faq.question}>
                 <h3>
                   <button
                     type="button"
                     onClick={() => setOpen(isOpen ? null : i)}
-                    className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-navy-50/50"
                     aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    className="flex w-full items-center justify-between gap-6 py-6 text-left"
                   >
-                    <span className="font-display text-base font-semibold text-navy-900 sm:text-lg">
-                      {faq.question}
-                    </span>
+                    <span className="text-lg font-medium text-navy-950 sm:text-xl">{faq.question}</span>
                     <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
-                        isOpen
-                          ? "rotate-45 border-brand-600 bg-brand-600 text-white"
-                          : "border-navy-200 text-navy-600"
+                      aria-hidden="true"
+                      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-500 ease-out-expo ${
+                        isOpen ? "rotate-45 border-gold-400 bg-gold-400 text-navy-950" : "border-navy-900/20 text-navy-900"
                       }`}
                     >
                       <Plus className="h-4 w-4" />
                     </span>
                   </button>
                 </h3>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p className="px-6 pb-6 pr-14 text-sm leading-relaxed text-navy-500 sm:text-base">
-                        {faq.answer}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* grid-rows trick: smooth height without animating `height` in JS */}
+                <div
+                  id={panelId}
+                  role="region"
+                  aria-hidden={!isOpen}
+                  className={`grid transition-[grid-template-rows] duration-500 ease-out-expo ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+                >
+                  <div className="overflow-hidden">
+                    <p className="max-w-2xl pb-7 pr-12 text-base leading-relaxed text-ink-soft">{faq.answer}</p>
+                  </div>
+                </div>
               </div>
             );
           })}

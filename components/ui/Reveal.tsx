@@ -1,94 +1,75 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
+
+export const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 type RevealProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
   y?: number;
-  as?: "div" | "section" | "li" | "article" | "span";
+  as?: "div" | "section" | "li" | "article" | "span" | "p";
 };
 
-/**
- * Scroll-triggered fade-and-rise wrapper.
- * Honors prefers-reduced-motion by rendering statically.
- */
-export function Reveal({ children, className, delay = 0, y = 24, as = "div" }: RevealProps) {
-  const shouldReduce = useReducedMotion();
-  const MotionTag = motion[as] as typeof motion.div;
-
-  if (shouldReduce) {
-    const Tag = as;
-    return <Tag className={className}>{children}</Tag>;
-  }
-
+/** Scroll-triggered fade-and-rise. Reduced motion is handled by MotionConfig. */
+export function Reveal({ children, className, delay = 0, y = 28, as = "div" }: RevealProps) {
+  const Tag = m[as] as typeof m.div;
   return (
-    <MotionTag
+    <Tag
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "0px 0px -12% 0px" }}
+      transition={{ duration: 0.9, delay, ease: EASE_OUT }}
     >
       {children}
-    </MotionTag>
+    </Tag>
   );
 }
 
 const containerVariants: Variants = {
   hidden: {},
-  show: {
-    transition: { staggerChildren: 0.09, delayChildren: 0.05 },
-  },
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 22 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-  },
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE_OUT } },
 };
 
-type StaggerProps = {
-  children: ReactNode;
-  className?: string;
-};
+type StaggerProps = { children: ReactNode; className?: string; as?: "div" | "ul" | "ol" };
 
 /** Parent that staggers direct <StaggerItem> children as they enter the viewport. */
-export function Stagger({ children, className }: StaggerProps) {
-  const shouldReduce = useReducedMotion();
-
-  if (shouldReduce) {
-    return <div className={className}>{children}</div>;
-  }
-
+export function Stagger({ children, className, as = "div" }: StaggerProps) {
+  const Tag = m[as] as typeof m.div;
   return (
-    <motion.div
+    <Tag
       className={className}
       variants={containerVariants}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
     >
       {children}
-    </motion.div>
+    </Tag>
   );
 }
 
-export function StaggerItem({ children, className }: StaggerProps) {
-  const shouldReduce = useReducedMotion();
-
-  if (shouldReduce) {
-    return <div className={className}>{children}</div>;
-  }
-
+export function StaggerItem({
+  children,
+  className,
+  as = "div",
+}: {
+  children: ReactNode;
+  className?: string;
+  as?: "div" | "li" | "article";
+}) {
+  const Tag = m[as] as typeof m.div;
   return (
-    <motion.div className={className} variants={itemVariants}>
+    <Tag className={className} variants={itemVariants}>
       {children}
-    </motion.div>
+    </Tag>
   );
 }

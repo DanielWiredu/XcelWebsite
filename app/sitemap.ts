@@ -1,12 +1,21 @@
 import type { MetadataRoute } from "next";
+import { projects } from "@/lib/content";
+
+const base = "https://www.xcelisolutions.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: "https://www.xcelisolutions.com",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-  ];
+  const now = new Date();
+  const pages = ["", "/work", "/services", "/about", "/contact"].map((path) => ({
+    url: `${base}${path}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: path === "" ? 1 : 0.8,
+  }));
+  const cases = projects.map((p) => ({
+    url: `${base}/work/${p.slug}`,
+    lastModified: now,
+    changeFrequency: "yearly" as const,
+    priority: 0.7,
+  }));
+  return [...pages, ...cases];
 }

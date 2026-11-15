@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Xcel iSolutions brand palette (derived from the diamond logo: navy + gold)
+        // Xcel iSolutions brand palette (from the twin-diamond logo: navy + gold)
         navy: {
           50: "#eef1fb",
           100: "#dbe1f6",
@@ -47,38 +47,77 @@ const config: Config = {
           800: "#8d4112",
           900: "#743612",
         },
+        // Warm editorial surfaces + neutral reading inks
+        paper: {
+          DEFAULT: "#f7f5ef",
+          deep: "#efebe1",
+        },
+        ink: {
+          DEFAULT: "#141a3c",
+          soft: "#3d4366",
+          muted: "#5d6380",
+        },
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
+      },
+      fontSize: {
+        // Fluid display sizes for editorial headlines
+        "display-xl": ["clamp(2.9rem, 7.2vw, 6.25rem)", { lineHeight: "0.98", letterSpacing: "-0.02em" }],
+        "display-lg": ["clamp(2.4rem, 5.2vw, 4.5rem)", { lineHeight: "1.02", letterSpacing: "-0.015em" }],
+        "display-md": ["clamp(2rem, 3.8vw, 3.25rem)", { lineHeight: "1.06", letterSpacing: "-0.01em" }],
       },
       borderRadius: {
         "4xl": "2rem",
         "5xl": "2.5rem",
       },
       boxShadow: {
-        soft: "0 10px 40px -12px rgba(20, 26, 60, 0.12)",
-        card: "0 20px 60px -20px rgba(20, 26, 60, 0.18)",
-        glow: "0 0 60px -10px rgba(37, 99, 235, 0.35)",
+        soft: "0 10px 40px -12px rgba(11, 15, 38, 0.12)",
+        card: "0 24px 64px -24px rgba(11, 15, 38, 0.28)",
+        float: "0 30px 80px -20px rgba(0, 0, 0, 0.45)",
+      },
+      transitionTimingFunction: {
+        "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
       },
       keyframes: {
-        "float-slow": {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-18px)" },
-        },
-        "gradient-pan": {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
-        },
         marquee: {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        "float-y": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "spin-slow": {
+          to: { transform: "rotate(360deg)" },
+        },
+        // CSS-driven first-paint animations: run before JS hydrates
+        "word-in": {
+          from: { transform: "translateY(105%)", opacity: "0" },
+          to: { transform: "translateY(0)", opacity: "1" },
+        },
+        "fade-up": {
+          from: { transform: "translateY(18px)", opacity: "0" },
+          to: { transform: "translateY(0)", opacity: "1" },
+        },
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        "zoom-out": {
+          from: { transform: "scale(1.12)" },
+          to: { transform: "scale(1)" },
+        },
       },
       animation: {
-        "float-slow": "float-slow 8s ease-in-out infinite",
-        "gradient-pan": "gradient-pan 12s ease infinite",
-        marquee: "marquee 32s linear infinite",
+        "word-in": "word-in 1s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "fade-up": "fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "fade-in": "fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "zoom-out": "zoom-out 2.4s cubic-bezier(0.16, 1, 0.3, 1) both",
+        marquee: "marquee 40s linear infinite",
+        "float-y": "float-y 7s ease-in-out infinite",
+        "spin-slow": "spin-slow 60s linear infinite",
       },
     },
   },

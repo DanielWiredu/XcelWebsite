@@ -1,97 +1,84 @@
-import { company, navLinks, services } from "@/lib/content";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { company, navLinks, projects } from "@/lib/content";
 import { Logo } from "./ui/Logo";
 
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-navy-100 bg-white">
-      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr]">
+    <footer className="relative overflow-hidden bg-navy-950 text-navy-200">
+      <div aria-hidden="true" className="absolute inset-0 bg-lines opacity-40" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Closing statement */}
+        <div className="flex flex-col gap-8 border-b border-white/10 py-16 sm:py-20 lg:flex-row lg:items-end lg:justify-between">
+          <p className="max-w-3xl font-serif text-display-md text-white">
+            Have a process that&apos;s holding you back?{" "}
+            <span className="italic text-gold-300">Let&apos;s fix it.</span>
+          </p>
+          <Link
+            href="/contact"
+            className="group inline-flex min-h-12 shrink-0 items-center gap-2 self-start rounded-full bg-gold-400 px-7 py-3.5 text-[15px] font-semibold text-navy-950 transition-colors hover:bg-gold-300 lg:self-auto"
+          >
+            Start a conversation
+            <ArrowUpRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </Link>
+        </div>
+
+        <div className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
           <div>
-            <Logo />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-navy-500">
-              {company.vision}
-            </p>
-            <p className="mt-4 font-display text-sm font-semibold text-brand-600">
-              {company.tagline}
-            </p>
-            <address className="mt-4 space-y-1 text-sm not-italic text-navy-500">
-              <p>{company.location}</p>
-              <p>
-                {company.phones.map((phone, i) => (
-                  <span key={phone}>
-                    <a
-                      href={`tel:${phone.replace(/[\s()]/g, "")}`}
-                      className="transition-colors hover:text-brand-600"
-                    >
-                      {phone}
-                    </a>
-                    {i < company.phones.length - 1 ? " · " : ""}
-                  </span>
-                ))}
-              </p>
-            </address>
-            <p className="mt-3 text-xs font-medium uppercase tracking-wider text-navy-400">
-              {company.hashtag}
-            </p>
+            <Logo variant="light" />
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-navy-300">{company.vision}</p>
+            <p className="mt-5 font-serif text-lg italic text-gold-300">{company.tagline}</p>
           </div>
 
-          <nav aria-label="Footer navigation">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-navy-400">
-              Company
-            </h2>
-            <ul className="mt-4 space-y-3">
+          <nav aria-label="Footer">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-navy-300">Company</h2>
+            <ul className="mt-5 space-y-3">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-navy-600 transition-colors hover:text-brand-600"
-                  >
+                  <Link href={link.href} className="text-sm text-navy-200 transition-colors hover:text-white">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </nav>
 
           <div>
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-navy-400">
-              Services
-            </h2>
-            <ul className="mt-4 space-y-3">
-              {services.slice(0, 5).map((service) => (
-                <li key={service.title}>
-                  <a
-                    href="#services"
-                    className="text-sm text-navy-600 transition-colors hover:text-brand-600"
-                  >
-                    {service.title}
-                  </a>
+            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-navy-300">Work</h2>
+            <ul className="mt-5 space-y-3">
+              {projects.map((p) => (
+                <li key={p.slug}>
+                  <Link href={`/work/${p.slug}`} className="text-sm text-navy-200 transition-colors hover:text-white">
+                    {p.shortName}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
+
+          <div>
+            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-navy-300">Contact</h2>
+            <address className="mt-5 space-y-3 text-sm not-italic">
+              <a href={`mailto:${company.email}`} className="block text-white transition-colors hover:text-gold-300">
+                {company.email}
+              </a>
+              {company.phones.map((phone) => (
+                <a key={phone} href={`tel:${phone.replace(/[\s()]/g, "")}`} className="block transition-colors hover:text-white">
+                  {phone}
+                </a>
+              ))}
+              <p className="text-navy-300">{company.location}</p>
+            </address>
+          </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-navy-100 pt-8 sm:flex-row">
-          <p className="text-sm text-navy-500">
-            © {year} {company.legalName}. All rights reserved.
+        <div className="flex flex-col gap-4 border-t border-white/10 py-8 text-sm text-navy-400 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {year} {company.legalName}
           </p>
-          <div className="flex items-center gap-6">
-            <a href="#" className="text-sm text-navy-500 transition-colors hover:text-brand-600">
-              Privacy
-            </a>
-            <a href="#" className="text-sm text-navy-500 transition-colors hover:text-brand-600">
-              Terms
-            </a>
-            <a
-              href={`mailto:${company.email}`}
-              className="text-sm text-navy-500 transition-colors hover:text-brand-600"
-            >
-              {company.email}
-            </a>
-          </div>
+          <span className="text-xs font-medium uppercase tracking-[0.2em]">{company.hashtag}</span>
         </div>
       </div>
     </footer>
